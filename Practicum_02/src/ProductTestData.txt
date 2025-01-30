@@ -1,0 +1,6 @@
+000001, lacroix, sparkling drink, 0.0
+.0
+000002, Lembas, Elven Wayfare Bread, 200.0
+000003, Mushrooms, Farer Took's Finest, 125.0
+000005, Mithril, Enchanted Dwarven Armor, 3000.0
+ithril, Enchanted Dwarven Armor, 3000.0
