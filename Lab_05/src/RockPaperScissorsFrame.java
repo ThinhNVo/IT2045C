@@ -25,11 +25,15 @@ public class RockPaperScissorsFrame extends JFrame implements Strategy {
     private int currImg = 0;
     private JLabel lblImg;
     private JTextArea scoreB;
+    private JLabel lblScore;
     private JScrollPane scroller;
 
     private int turn;
     Random rnd = new Random();
     private ArrayList<Integer> mostUsed;
+    private int computerS;
+    private int humanS;
+    private int ties;
 
 
     public RockPaperScissorsFrame() {
@@ -63,6 +67,7 @@ public class RockPaperScissorsFrame extends JFrame implements Strategy {
 
     private void createBoxPanel() {
         boxPnl = new JPanel();
+        boxPnl.setLayout(new BorderLayout());
 
         imgs = new ImageIcon[4];
         imgs[0] = new ImageIcon("src/computer.jpg");
@@ -70,25 +75,25 @@ public class RockPaperScissorsFrame extends JFrame implements Strategy {
         imgs[2] = new ImageIcon("src/scissors.jpg");
         imgs[3] = new ImageIcon("src/paper.jpg");
 
-        String[] title = {"Can you beat the machine?", "you win", "machine wins"};
-
-        lblImg = new JLabel(title[0], imgs[currImg], JLabel.CENTER);
+        String title = "Can you beat the machine?";
+        lblImg = new JLabel(title, imgs[currImg], JLabel.CENTER);
         lblImg.setVerticalTextPosition(JLabel.BOTTOM);
         lblImg.setHorizontalTextPosition(JLabel.CENTER);
 
-        boxPnl.add(lblImg);
+        boxPnl.add(lblImg, BorderLayout.NORTH);
+
     }
 
     private void createScorePanel() {
-        scoreB = new JTextArea(5, 25);
+        scoreB = new JTextArea(7, 30);
         scoreB.setEditable(false);
         scoreB.setFont(new Font("Cascadia Mono", Font.PLAIN, 15));
         scroller = new JScrollPane(scoreB);
-        boxPnl.add(scroller);
+        boxPnl.add(scroller, BorderLayout.CENTER);
     }
 
     private void createDisplayPanel() {
-        displayPnl = new JPanel(new GridLayout(1, 3, 50, 100));
+        displayPnl = new JPanel(new GridLayout(1, 3, 30, 80));
 
         rockimg = new ImageIcon("src/humanrock.jpg");
         scissorimg = new ImageIcon("src/humanscissor.jpg");
@@ -119,13 +124,22 @@ public class RockPaperScissorsFrame extends JFrame implements Strategy {
             mostUsed.add(1);
             int decision = determinedMove(turn);
             if (decision == 1) {
-                lblImg.setText("Ties");
+                ties++;
+                lblImg.setText("<html>It's a tie!<br>Computer Score: " + computerS +
+                        " Human Score: " + humanS +
+                        " Ties: " + ties + "</html>");
                 scoreB.append("Rock meets Rock (Everyone ties)" + "\n");
             } else if (decision == 2) {
-                lblImg.setText("Player wins");
+                humanS++;
+                lblImg.setText("<html>Player wins<br>Computer Score: " + computerS +
+                        " Human Score: " + humanS +
+                        " Ties: " + ties + "</html>");
                 scoreB.append("Rock breaks scissors (Player wins)" + "\n");
             } else {
-                lblImg.setText("Computer wins");
+                computerS++;
+                lblImg.setText("<html>Computer wins<br>Computer Score: " + computerS +
+                        " Human Score: " + humanS +
+                        " Ties: " + ties + "</html>");
                 scoreB.append("Paper covers Rock (Computer wins)" + "\n");
             }
             turn++;
@@ -135,13 +149,22 @@ public class RockPaperScissorsFrame extends JFrame implements Strategy {
             mostUsed.add(2);
             int decision = determinedMove(turn);
             if (decision == 1) {
-                lblImg.setText("Computer wins");
+                computerS++;
+                lblImg.setText("<html>Computer wins<br>Computer Score: " + computerS +
+                        " Human Score: " + humanS +
+                        " Ties: " + ties + "</html>");
                 scoreB.append("Rock breaks scissors (Computer wins)" + "\n");
             } else if (decision == 2) {
-                lblImg.setText("Ties");
+                ties++;
+                lblImg.setText("<html>It's a tie!<br>Computer Score: " + computerS +
+                        " Human Score: " + humanS +
+                        " Ties: " + ties + "</html>");
                 scoreB.append("Scissors meet scissors (Everyone ties)" + "\n");
             } else {
-                lblImg.setText("Player wins");
+                humanS++;
+                lblImg.setText("<html>Player wins<br>Computer Score: " + computerS +
+                        " Human Score: " + humanS +
+                        " Ties: " + ties + "</html>");
                 scoreB.append("Scissors cut paper (Player wins)" + "\n");
             }
             turn++;
@@ -151,13 +174,19 @@ public class RockPaperScissorsFrame extends JFrame implements Strategy {
             mostUsed.add(3);
             int decision = determinedMove(turn);
             if (decision == 1) {
-                lblImg.setText("Player wins");
+                lblImg.setText("<html>Player wins<br>Computer Score: " + computerS +
+                        " Human Score: " + humanS +
+                        " Ties: " + ties + "</html>");
                 scoreB.append("Paper covers Rock (Player wins)" + "\n");
             } else if (decision == 2) {
-                lblImg.setText("Computer wins");
+                lblImg.setText("<html>Computer wins<br>Computer Score: " + computerS +
+                        " Human Score: " + humanS +
+                        " Ties: " + ties + "</html>");
                 scoreB.append("Scissors cut paper (Computer wins)" + "\n");
             } else {
-                lblImg.setText("Ties");
+                lblImg.setText("<html>It's a tie!<br>Computer Score: " + computerS +
+                        " Human Score: " + humanS +
+                        " Ties: " + ties + "</html>");
                 scoreB.append("Paper meets paper (Everyone ties)" + "\n");
             }
             turn++;
